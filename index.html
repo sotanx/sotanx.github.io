@@ -41,51 +41,33 @@
               </div>
 	</dt-hamburger-menu>
 
-	<div>
+
           <TABLE BORDER="1" width="100%" height="150px">
             <TR>
-              <TD class="tableColumn" style="text-align: center; vertical-align: middle;">Tense</TD>
               <TD class="tableColumn">
-                {{question.tense}}
+                {{question.tense}} ( Results : Success {{stats.succeded}}, Failed {{stats.failed}} )
+                <button class="btn btn-default btn-sm" ng-click="resetStats()">Reset stats</button>
               </TD>
             </TR>
             <TR>
-              <TD class="tableColumn" style="text-align: center; vertical-align: middle;">Verb</TD>
               <TD class="tableColumn">
                 {{question.verb}}
                 <button class="btn btn-primary" ng-click="showConjugation(question.verbData, question.tenseData)">...</button>
               </TD>
             </TR>
             <TR>
-              <TD class="tableColumn" style="text-align: center; vertical-align: middle;">{{question.people}}</TD>
               <TD class="tableColumn">
-                <input ng-if="question.result.length == 0" id="answer" name="answer" ng-model="question.response" class="styled" auto-focus width="100%"/>
+		{{question.people}}
+                <input ng-if="question.result.length == 0" id="answer" name="answer" ng-model="question.response" class="styled" auto-focus/>
                 <div ng-if="question.result.length > 0">
                   <label ng-if="question.resultSuccess">{{question.result}}</label>
                   <label ng-if="question.resultSuccess == false" style="color:red">{{question.result}}</label>
                 </div>
+                <button class="btn btn-default btn-sm" ng-click="next()">Next</button>
               </TD>
             </TR>
           </TABLE>
 
-          <div class="col-xs-12">
-            <button class="btn btn-default btn-sm" ng-click="next()">Get</button>
-          </div>
-
-          <TABLE BORDER="1">
-            <TR>
-              <TD>Success</TD>
-              <TD>{{stats.succeded}}</TD>
-            </TR>
-            <TR>
-              <TD>Failed</TD>
-              <TD>{{stats.failed}}</TD>
-            </TR>
-          </TABLE>
-          <div class="col-xs-12">
-            <button class="btn btn-default btn-sm" ng-click="resetStats()">Reset stats</button>
-          </div>
-	</div>
 
     <script type="text/ng-template" id="VerbList.html" class="modal">
         <div class="modal-header">
