@@ -5,9 +5,9 @@
         .module('app')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$rootScope', '$scope', '$modal'];
+    HomeController.$inject = ['$rootScope', '$scope', '$modal', '$localStorage'];
 
-    function HomeController($rootScope, $scope, $modal) {
+    function HomeController($rootScope, $scope, $modal, $localStorage) {
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Fields 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -21,7 +21,7 @@
                 name: 'Present',
                 help: 'Yo hablo...',
                 tag: 'In Pres',
-                active: true,
+                active: false,
             },
             {
                 name: 'Present Progressive',
@@ -51,13 +51,13 @@
                 name: 'Preterite',
                 help: 'Yo hablé...',
                 tag: 'In Pret',
-                active: true,
+                active: false,
             },
             {
                 name: 'Present Perfect',
                 help: 'Yo he hablado...',
                 tag: 'In Pres Per',
-                active: true,
+                active: false,
             },
             {
                 name: 'Futur Perfect',
@@ -69,7 +69,7 @@
                 name: 'Past Perfect',
                 help: 'Yo había hablado...',
                 tag: 'In Pas Per',
-                active: true,
+                active: false,
             },
             {
                 name: 'Conditional Perfect',
@@ -154,6 +154,12 @@
         $scope.question = {};
 
         $scope.stats = {};
+
+	$scope.settings = {
+          "tenses": [],
+          "vosotros": false,
+	  "customVerbs" : []
+        }
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Methods
@@ -242,19 +248,42 @@
             });
         }
 
-        $scope.loadCustomVerbList = function () {
-            var list = [];
-            list.push("ser");
-            list.push("estar");
-            list.push("ir");
-            list.push("tener");
-            list.push("hacer");
-            list.push("querer");
-            list.push("deber");
-            list.push("poder");
-            list.push("decir");
+        $scope.loadSettings = function () {
 
-            list.forEach(function (item) {
+	    var savedSettings = $localStorage.settings;
+            if (savedSettings != null) {
+	    	$scope.settings = savedSettings;
+            }
+	    else {
+               $scope.settings.tenses.push('Present');
+               $scope.settings.tenses.push('Preterite');
+               $scope.settings.tenses.push('Present Perfect');
+               $scope.settings.tenses.push('Past Perfect');
+               $scope.settings.vosotros = false;
+               $scope.settings.customVerbs.push("ser");
+               $scope.settings.customVerbs.push("estar");
+               $scope.settings.customVerbs.push("ir");
+               $scope.settings.customVerbs.push("tener");
+               $scope.settings.customVerbs.push("hacer");
+               $scope.settings.customVerbs.push("querer");
+               $scope.settings.customVerbs.push("deber");
+               $scope.settings.customVerbs.push("poder");
+               $scope.settings.customVerbs.push("decir");
+	       $scope.saveSettings()
+            } 	
+
+            if ( $scope.settings.tenses.length == 0 ) {
+	    	$scope.settings.tenses.push('Present');
+            }			
+
+            $scope.settings.tenses.forEach(function (item) {
+                var found = $scope.optionsTenseMenu.filter(function (el) { return el.name == item })[0];
+                if (found != undefined) {
+                    found.active = true;
+                }
+            });
+
+            $scope.settings.customVerbs.forEach(function (item) {
                 var found = VERB_DATA.filter(function (el) { return el.inf == item })[0];
                 if (found != undefined) {
                     $scope.customVerb.push(found);
@@ -262,6 +291,11 @@
             });
 
         }
+
+	$scope.saveSettings = function () {
+               $localStorage.settings = $scope.settings;	
+        }
+
 
         $scope.showConjugation = function (verb, tense) {
             var tenses = [];
@@ -281,10 +315,11 @@
             })
         }
 
+
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Initialization code
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        $scope.loadCustomVerbList();
+        $scope.loadSettings();
         $scope.resetStats();
         $scope.next();
     }

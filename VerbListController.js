@@ -12,11 +12,19 @@
         // Fields 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        $scope.filterVerb = "";
         $scope.verbs = verbs;
 
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
         };
+
+        $scope.customFilter = function(item) {
+  	  if ((item.inf.toLowerCase().indexOf($scope.filterVerb.toLowerCase()) != -1) || (item.inf_eng.toLowerCase().indexOf($scope.filterVerb.toLowerCase()) != -1)){
+            return true;
+          }
+          return false;
+        }
 
         $scope.showConjugation = function (verb) {
             var instance = $modal.open({

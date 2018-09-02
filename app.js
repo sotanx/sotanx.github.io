@@ -8,7 +8,9 @@
              'ngMessages',
              'pascalprecht.translate',
              'vs-repeat',
-	     'dt-hamburger-menu'
+	     'dt-hamburger-menu',
+             'anguFixedHeaderTable',
+             'ngStorage'
          ]);
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
