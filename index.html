@@ -67,7 +67,7 @@
                   spellcheck="false" 
                   autocorrect="off"
                   auto-focus/>
-                <div ng-if="question.result.length > 0">
+                <div ng-if="question.result.length > 0" style="display: inline-block">
                   <label ng-if="question.resultSuccess">{{question.result}}</label>
                   <label ng-if="question.resultSuccess == false" style="color:red">{{question.result}}</label>
                 </div>
