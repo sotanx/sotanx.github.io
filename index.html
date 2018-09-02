@@ -58,7 +58,15 @@
             <TR>
               <TD class="tableColumn">
 		{{question.people}}
-                <input ng-if="question.result.length == 0" id="answer" name="answer" ng-model="question.response" class="styled" auto-focus/>
+                <input ng-if="question.result.length == 0" 
+		  id="answer" name="answer" 
+                  ng-model="question.response" 
+                  class="styled" 
+                  autocapitalize="off" 
+                  autocomplete="off"
+                  spellcheck="false" 
+                  autocorrect="off"
+                  auto-focus/>
                 <div ng-if="question.result.length > 0">
                   <label ng-if="question.resultSuccess">{{question.result}}</label>
                   <label ng-if="question.resultSuccess == false" style="color:red">{{question.result}}</label>
