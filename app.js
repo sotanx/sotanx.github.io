@@ -7,7 +7,8 @@
              'ui.bootstrap',
              'ngMessages',
              'pascalprecht.translate',
-             'vs-repeat'
+             'vs-repeat',
+	     'dt-hamburger-menu'
          ]);
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
