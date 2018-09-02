@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+    <title>TypeScript HTML App</title>
+    <link rel="stylesheet" href="app.css" type="text/css" />
+    <link rel="stylesheet" href="lib/bootstrap.min.css" type="text/css" />
+    <script type="text/javascript" src="lib\jquery.js"></script>
+    <script type="text/javascript" src="lib\consoleStub.js"></script>
+    <script type="text/javascript" src="lib\angular.js"></script>
+    <script type="text/javascript" src="lib\angular-translate.js"></script>
+    <script type="text/javascript" src="lib\bootstrap.js"></script>
+    <script type="text/javascript" src="lib\angular-route.js"></script>
+    <script type="text/javascript" src="lib\ui-bootstrap-tpls.js"></script>
+    <script type="text/javascript" src="lib\angular-vs-repeat.js"></script>
+    <script type="text/javascript" src="lib\angular-ui-router.js"></script>
+    <script type="text/javascript" src="lib\angular-translate-loader-url.js"></script>
+    <script type="text/javascript" src="lib\angular-messages.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="Data.js" charset="utf-8"></script>
+    <script type="text/javascript" src="HomeController.js"></script>
+    <script type="text/javascript" src="directives.js"></script>
+    <script type="text/javascript" src="VerbListController.js"></script>
+    <script type="text/javascript" src="VerbConjugationController.js"></script>
+</head>
+<body ng-controller="HomeController" ng-keyup="$event.keyCode == 13 ? next() : null">
+    <div class="container">
+        <div class="nav">
+            <div ng-repeat="item in optionsTenseMenu">
+                <input ng-model="item.active" class="styled" type="checkbox" />
+                <label>
+                    {{item.name}} - {{item.help}}
+                </label>
+            </div>
+            <div ng-repeat="item in verbList">
+                <input type="radio" ng-checked="item.active" ng-click="setActiveVerbList(item)"/>
+                {{item.name}}
+                <button ng-if="item.browse" ng-click="browse(item.browseList)">Browse</button>
+            </div>
+        </div>
+
+        <div class="main">
+            <div class="row">
+                <TABLE BORDER="1">
+                    <TR>
+                        <TD class="tableColumn">Tense</TD>
+                        <TD class="tableColumn">
+                            {{question.tense}}
+                        </TD>
+                    </TR>
+                    <TR>
+                        <TD class="tableColumn">Verb</TD>
+                        <TD class="tableColumn">
+                            {{question.verb}}
+                            <button class="btn btn-primary" ng-click="showConjugation(question.verbData, question.tenseData)">...</button>
+                        </TD>
+                    </TR>
+                    <TR>
+                        <TD class="tableColumn">{{question.people}}</TD>
+                        <TD class="tableColumn">
+                            <input ng-if="question.result.length == 0" id="answer" name="answer" ng-model="question.response" class="styled" auto-focus />
+                            <div ng-if="question.result.length > 0">
+                                <label ng-if="question.resultSuccess">{{question.result}}</label>
+                                <label ng-if="question.resultSuccess == false" style="color:red">{{question.result}}</label>
+                            </div>
+                        </TD>
+                    </TR>
+                </TABLE>
+                <div class="col-xs-12">
+                    <button class="btn btn-default btn-sm" ng-click="next()">Get</button>
+                </div>
+
+                <TABLE BORDER="1">
+                    <TR>
+                        <TD>Success</TD>
+                        <TD>{{stats.succeded}}</TD>
+                    </TR>
+                    <TR>
+                        <TD>Failed</TD>
+                        <TD>{{stats.failed}}</TD>
+                    </TR>
+                </TABLE>
+                <div class="col-xs-12">
+                    <button class="btn btn-default btn-sm" ng-click="resetStats()">Reset stats</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script type="text/ng-template" id="VerbList.html" class="modal">
+        <div class="modal-header">
+            List count {{verbs.length}}
+        </div>
+        <div class="modal-body">
+            <div ng-repeat="verb in verbs">
+                <label>
+                    {{verb["inf"] + ' - ' + verb["inf_eng"]}}
+                </label>
+                <button class="btn btn-primary" ng-click="showConjugation(verb)">...</button>
+            </div>            
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="cancel()">OK</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="VerbConjugation.html" class="modal">
+        <div class="modal-header">
+            {{verb["inf"] + ' - ' + verb["inf_eng"]}}
+        </div>
+        <div class="modal-body">
+            <div ng-repeat="tense in conjugations">
+                <label style="color:blue">
+                    {{tense.name}}
+                </label>
+                <div ng-repeat="data in tense.tenseData">
+                    <label>
+                        {{data}}
+                    </label>
+                </div>
+                <label></label>
+            </div>   
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="cancel()">OK</button>
+        </div>
+    </script>
+
+</body>
+</html>
