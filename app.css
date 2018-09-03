@@ -1,12 +1,12 @@
 ﻿html, body {
- font-size: 16px;
- height: 100%;
- padding:0;
- margin: 0;
+   font-size: 16px;
+   height: 100%;
+   padding:0;
+   margin: 0;
 }
 
 .tableColumn {
- text-align: center
+   text-align: center
 }
 
 select, 
@@ -25,5 +25,5 @@ input[type="url"],
 input[type="search"], 
 input[type="tel"], 
 input[type="color"] { 
-  font-size: 16px; 
+   font-size: 16px; 
 }
