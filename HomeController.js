@@ -158,7 +158,8 @@
 	$scope.settings = {
           "tenses": [],
           "vosotros": false,
-	  "customVerbs" : []
+	  "customVerbs" : [],
+          "activeVerbList" : 'Common verb only'
         }
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -269,11 +270,16 @@
                $scope.settings.customVerbs.push("deber");
                $scope.settings.customVerbs.push("poder");
                $scope.settings.customVerbs.push("decir");
-	       $scope.saveSettings()
+  	       $scope.settings.activeVerbList = 'Common verb only';
+               $localStorage.settings = $scope.settings;
             } 	
 
             if ( $scope.settings.tenses.length == 0 ) {
 	    	$scope.settings.tenses.push('Present');
+            }
+
+            if ( typeof($scope.settings.activeVerbList) == "undefined" || $scope.settings.activeVerbList === null ) {
+              $scope.settings.activeVerbList = 'Common verb only';
             }			
 
             $scope.settings.tenses.forEach(function (item) {
@@ -290,10 +296,51 @@
                 }
             });
 
+            $scope.verbList.forEach(function (item) {
+		if ( item.name == $scope.settings.activeVerbList ) {
+                    item.active = true;
+                }
+                else {
+                    item.active = false;
+                }
+            });
+
+	    $scope.$watch(function () {
+        	        return $scope.customVerb;
+	            }, function() {
+		$scope.saveSettings();
+            }, true);
+
+	    $scope.$watch(function () {
+        	        return $scope.optionsTenseMenu;
+	            }, function() {
+		$scope.saveSettings();
+            }, true);
+
+	    $scope.$watch(function () {
+        	        return $scope.verbList;
+	            }, function() {
+		        $scope.saveSettings();
+                    }, true);
         }
 
 	$scope.saveSettings = function () {
-               $localStorage.settings = $scope.settings;	
+            $scope.settings.tenses.length = 0;
+	    $scope.optionsTenseMenu.forEach(function (item) {
+		if (item.active == true) {
+                  $scope.settings.tenses.push(item.name);
+		}
+            });
+
+
+	    $scope.verbList.forEach(function (item) {
+		if (item.active == true) {
+                  $scope.settings.activeVerbList = item.name;
+		}
+            });
+
+
+            $localStorage.settings = $scope.settings;	
         }
 
 
