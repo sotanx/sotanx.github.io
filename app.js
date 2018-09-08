@@ -8,7 +8,8 @@
 		'ngMessages',
 		'pascalprecht.translate',
 		'vs-repeat',
-		'dt-hamburger-menu',
+	   'expando-menu',
+   	'expando-menu-item',
 		'anguFixedHeaderTable',
 		'ngStorage',
 		'ngAnimate'
