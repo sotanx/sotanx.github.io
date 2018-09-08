@@ -3,14 +3,15 @@
 
 	var helpApp = angular.module('app',
 	[
-	'ui.router',
-	'ui.bootstrap',
-	'ngMessages',
-	'pascalprecht.translate',
-	'vs-repeat',
-	'dt-hamburger-menu',
-	'anguFixedHeaderTable',
-	'ngStorage'
+		'ui.router',
+		'ui.bootstrap',
+		'ngMessages',
+		'pascalprecht.translate',
+		'vs-repeat',
+		'dt-hamburger-menu',
+		'anguFixedHeaderTable',
+		'ngStorage',
+		'ngAnimate'
 	]);
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

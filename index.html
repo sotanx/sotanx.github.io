@@ -22,6 +22,7 @@
     <script type="text/javascript" src="lib\hamburger-menu.js"></script>
     <script type="text/javascript" src="lib\angu-fixed-header-table.js"></script>
     <script type="text/javascript" src="lib\ngStorage.min.js"></script>
+    <script type="text/javascript" src="lib\ngAnimate.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
     <script type="text/javascript" src="Data.js" charset="utf-8"></script>
     <script type="text/javascript" src="HomeController.js"></script>
@@ -31,17 +32,57 @@
   </head>
   <body ng-controller="HomeController" ng-keyup="$event.keyCode == 13 ? next() : null">
     <dt-hamburger-menu>
-    <div ng-repeat="item in optionsTenseMenu">
-      <input ng-model="item.active" class="styled" type="checkbox" />
-      <label>
-      {{item.name}}
-      </label>
-    </div>
-    <div ng-repeat="item in verbList">
-      <input type="radio" ng-checked="item.active" ng-click="setActiveVerbList(item)"/>
-      {{item.name}}
-      <button ng-if="item.browse" ng-click="browse(item)">Browse</button>
-    </div>
+      <table class="table" width="100%" height="95%" fixed-header >
+        <tbody>
+          <tr>
+            <td>
+              <div class="expandcollapse-item">
+                <div ng-click="menuTenseActive = !menuTenseActive" ng-class="{'expandcollapse-heading-collapsed': menuTenseActive, 'expandcollapse-heading-expanded': !menuTenseActive}">
+                  <p><label style="width: 300px">Tense</label><i class="arrow up" ng-hide="menuTenseActive"></i><i class="arrow down" ng-hide="!menuTenseActive"></i></p>
+                </div>
+
+                <div class="slideDown" ng-hide="menuTenseActive">
+                  <div class="expand-collapse-content">
+                    <table class="table" width="100%" fixed-header >
+                      <tbody>
+                        <tr ng-repeat="item in optionsTenseMenu">
+                          <td><input ng-model="item.active" class="styled" type="checkbox"/></td>
+                          <td>{{item.name}}</td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>          
+            </td>              
+          </tr>
+         
+          <tr>
+            <td>         
+              <div class="expandcollapse-item">
+                <div ng-click="menuVerbList = !menuVerbList" ng-class="{'expandcollapse-heading-collapsed': menuVerbList, 'expandcollapse-heading-expanded': !menuVerbList}">
+                  <p><label style="width: 300px">Verb</label><i class="arrow up" ng-hide="menuVerbList"></i><i class="arrow down" ng-hide="!menuVerbList"></i></p>
+                </div>
+
+                <div class="slideDown" ng-hide="menuVerbList">
+                  <div class="expand-collapse-content">
+                    <table class="table" width="100%" fixed-header >
+                      <tbody>
+                        <tr ng-repeat="item in verbList">
+                          <td><input type="radio" ng-checked="item.active" ng-click="setActiveVerbList(item)"/></td>
+                          <td>{{item.name}}</td>
+                          <td><button ng-if="item.browse" ng-click="browse(item)">Browse</button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>  
+            </td>              
+          </tr>
+        </tbody>
+      </table>
     </dt-hamburger-menu>
 
     <table class="table table-bordered" width="100%" height="200px">
