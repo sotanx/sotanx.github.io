@@ -102,16 +102,19 @@
 				name: 'Common verb only',
 				active: true,
 				browse: true,
+				editable: false,
 			},
 			{
 				name: 'All verbs',
 				active: false,
 				browse: true,
+				editable: false,				
 			},
 			{
 				name: 'Custom verb list',
 				active: false,
 				browse: true,
+				editable: true,				
 			},
 		];
 

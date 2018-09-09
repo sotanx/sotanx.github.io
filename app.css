@@ -32,3 +32,15 @@ input[type="color"] {
 label {
    vertical-align: middle;
 }
+
+.verb-table-modal {
+   height: calc(100vh - 240px);   
+}
+
+.conjugation-table-modal {
+   height: calc(100vh - 190px);   
+}
+
+.table-row-button {
+   float: right;
+}

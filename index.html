@@ -107,18 +107,18 @@
         List count {{verbs.length}}
       </div>
       <div class="modal-body">
-        <table class="table table-bordered" width="100%" height="400px" fixed-header >
+        <table class="table table-bordered verb-table-modal" fixed-header >
           <thead>
             <tr>
               <th>
                 <input ng-model="filterVerb"></input>
-                <button class="btn btn-primary" ng-click="filterVerb=''">Clear</button></td>
+                <button class="btn btn-primary table-row-button" ng-click="filterVerb=''">Clear</button></td>
               </th>
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat="verb in verbs | filter:customFilter">
-              <td>{{verb["inf"] + ' - ' + verb["inf_eng"]}}<button class="btn btn-primary" ng-click="showConjugation(verb)">...</button></td>
+              <td>{{verb["inf"] + ' - ' + verb["inf_eng"]}}<button class="btn btn-primary table-row-button" ng-click="showConjugation(verb)">?</button></td>
             </tr>
           </tbody>
         </table>
@@ -133,7 +133,7 @@
         {{verb["inf"] + ' - ' + verb["inf_eng"]}}
       </div>
       <div class="modal-body">
-        <table class="table table-bordered" width="100%" height="400px" fixed-header >
+        <table class="table table-bordered conjugation-table-modal" fixed-header >
           <tbody>
             <tr ng-repeat="tense in conjugations">
               <td>
